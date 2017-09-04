@@ -52,11 +52,14 @@ The database will contain metadata extracted from the pictures, and also metadat
 
 ### Search engine
 The search engine will contain a document per picture and will be kept in sync with the metadata in the database. The purpose of the search engine is to provide an efficient means to browse earlier observations of orcas when trying to match the current picture with already identified animals.
-With data data indexed in a search engine, it may be possible to use other available tools such as Kibana to visualize and analyse the data.
+With data indexed in a search engine, it may be possible to use other available tools such as Kibana to visualise and analyse the data.
 
 ### Web-application
+The web-application is the main tool for users who will analyse pictures. They will be able to tag individual animals with characteristics, such as damages and nicks to the dorsal fin. If an individual is recognized as one observed before its identity can be added. The web-application will have a 'main-page' that will serve as a desktop for doing the tagging/identification. From the same page it should be possible to browse through pictures, earlier observations, and search through the database for pictures with animals with similar characteristics.
+
+This function will have to be specified and developed based on input from the Norwegian Orca Survey staff members.
 
 ### Export facility
-
+To be defined.
 
 
