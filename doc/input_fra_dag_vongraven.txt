@@ -1,0 +1,100 @@
+Hei Bjørn
+ 
+Det kan være flere dyr pr bilde, men individene katalogiseres hver for seg. Hele flokker katalogiseres ikke.
+ 
+Har gløtta på humpback-katalogen, og browse-delen ser grei ut. Jeg ønsker imidlertid et grensesnitt hvor man kan kombinere en browse-del med den delen hvor man entrer nye bilder/data. Man får slått opp den nye bildet på en del av skjermen, eller på skjerm 2, man har en åpen browse-del hvor man kan søke etter/bla gjennom eksisterende bilder/individer, og man må ha et input-vindu, hvor man kan entre metadata og info om de nye bildene/nye individer. Humpback-system på hvalid.no viser kun en del hvor hvemsomhelst kan legge inn nye bilder, men vi trenger en arbeidsstasjon hvor man kan ta inn nye bilder, sjekke mot eksisterende database og evt legge inn metadata om det nye bildet/de nye bildene. Med metadata mener jeg ikke bare hvor og når bildet er tatt, men også klassifiseringen av søkbare parametre om nye individer (antall hakk i finnen, øvrige skader, form på sadelflekken etc.).
+ 
+Dag
+ 
+Fra: Bjørn Hjelle [mailto:bjorn.hjelle@gmail.com] 
+Sendt: fredag 1. september 2017 09.48
+Til: Dag Vongraven <dag.vongraven@npolar.no>
+Emne: Re: Fotodatabaseverktøy - fotoidentifikasjon av spekkhoggere
+ 
+Hei igjen, 
+ 
+et par oppfølgingsspørsmål:
+- er det bare et dyr per bilde, eller kan det være flere? kan det være en hel flokk?
+- er det ikke omtrent det samme de gjør disse som kartlegger knølhval (tagging av bilder osv):
+
+http://www.hvalid.no/catalogue/how-to-use-the-catalogue
+
+Kan dere bruke det samme systemet?
+
+Dersom det må lages noe nytt så ville det være fint om det kan lages på en slik måte at andre forskere og interesserte også kan ha nytte av det.
+ 
+Bjørn
+ 
+ 
+ 
+2017-07-17 21:23 GMT+02:00 Dag Vongraven <dag.vongraven@npolar.no>:
+Hei Bjørn
+ 
+Glemte å legge ved bilde. Det vedlagte bildet er et gammelt analogt og scannet bilde, så det inneholder ingen lagrete metadata.
+ 
+1.      Ingen lat/lon-data foreløpig, men det kommer nok.
+
+2.      Med å katalogisere mener jeg vel egentlig hele prosessen: Man åpner bildet, ser om man kjenner igjen hvalen, hvis man ikke husker individet, men aner at man har den i arkivet allerede, må man ha mulighet til å bla i de allerede arkiverte bildene. Om man finner den i arkivet, blir dette en ny observasjon av dette individet. Man bør kunne kategorisere bildene etter bestemte kjennetegn, f.eks. hakk i finnen, dvs hvis man har to hakk i bakkant av ryggfinnen og ett i forkant, så kan man gi den en kode etter en nøkkel man bestemmer, f.eks. 2B/1F (+andre koder for andre kjennetegn), slik at man kan gjøre utvalg i arkivet. Data må inn i en datafil, dvs at individkoden, som man bestemmer fra desktop, går inn i datafilen sammen med et utvalg data fra metadata (tid, lat/lon fra metadata eller innlagt manuelt, etc.). DETTE ER DET MYE LETTER Å SNAKKE OM ENN Å FÅ MED I EN EPOST…
+
+3.      Et bilde blir ferdig behandlet ja, det vurderes av databaseeier eller den hun gir tilsvarende status. Men, det kan være aktuelt på et senere tidspunkt å endre individkode (dvs navn), kanskje også å redigere metadata av en eller annen grunn.
+
+4.      Jeg tenker meg at man genererer en datafil via et script som ekstraherer utvalgte metadata inn i et regneark e.l., som vil være det som benyttes i analyser. For analysene vil det stort sett være individnavn, tid og sted som er mest aktuelt å bruke.
+
+ 
+Snakket nettopp med Eve og hun har 10-15000 til rådighet i utgangspunktet.
+ 
+Dag
+ 
+Fra: Bjørn Hjelle [mailto:bjorn.hjelle@gmail.com] 
+Sendt: mandag 17. juli 2017 11.14
+Til: Dag Vongraven <dag.vongraven@npolar.no>
+Emne: Re: Fotodatabaseverktøy - fotoidentifikasjon av spekkhoggere
+ 
+Heisann, 
+ 
+noen spørsmål: 
+ 
+- er bildene geotagget? altså har de lat/long i exif metadata i bildefilene?
+(tror du glemte å legge ved et bilde, send gjerne et eksempel)
+- kan bildene være synlig for andre, eller skal de kun være synlig for spesialistene?
+- hva mener du med "katalogisere bildet" ?
+- og er et bilde ferdig behandlet på et tidspunkt? hvem vurderer det evt?
+- hvordan tenkes dataene (de ferdigbehandlede bildene, med taggger) brukt i analyse?
+ 
+Jeg tenker litt på om dette kan gjøres som en utvidelse av Biocaching der utvalgte brukere får tildelt en rolle og dermed tilgang til ekstra funksjonalitet. 
+ 
+mvh
+Bjørn
+ 
+ 
+ 
+2017-07-15 20:00 GMT+02:00 Dag Vongraven <dag.vongraven@npolar.no>:
+Hei Bjørn
+ 
+Saken er altså som følger:
+ 
+Våre primærdata er digitale bilder, som f.eks. vedlagte bilde, som identifiserer enkeltindivider av spekkhogger. Pr i dag er ca 1,000 spekkhoggere identifisert og i en database. Min samarbeidspartner, Eve Jourdain på Andenes, er ute i lange perioder daglig, og kommer hjem med kort fulle av bilder, og pr i dag så har vi mellom 50 og 100 tusen (!!) bilder som enda ikke er behandlet. Behandlingen består i å vurdere hvert bilde, plukke ut identifiserbare hvaler, gi de en kode og katalogisere bildet. Mange måter å gjøre dette på, men det er gjerne nødvendig å legge søkbar informasjon ved hvert bilde, f.eks. hvor mange «nicks» (hakk) det er i finnen, hvilken side av finnen etc.
+ 
+Vi har behov for et system som tillater at de menneskene vi mener er skikket for jobben kan få tilgang til alle nye bilder, uansett hvor de er, ta de inn på en desktop som er skreddersydd for formålet. Brukerflaten her bør være slik at man med letthet kan gi et individ/bilde noen tags avhengig av hvor evt hakk og merker er i forkant eller bakkant av ryggfinnen, gi individet/ en foreløpig alfanumerisk kode, og på en del av brukerflaten må man ha tilgang til den eksisterende databasen slik at man søke opp lignende individer med kjent identitet for sammenligning, eller evt bare kunne bla gjennom alle identifiserte hvaler. Alle hvaler som behandles av andre enn vi som er eiere får en tag som viser at den enda ikke er «godkjent».
+ 
+Databaseeier/fotograf dumper altså bare bildene i en Dropbox-mappe (eller tilsvarende), hvor de er tilgjengelige for de som gjør jobben.
+ 
+Jeg ser at dette muligens ble litt dårlig forklart, men jeg tror du allerede har forstått hovedkonseptet.
+ 
+Takk for all hjelp!
+ 
+Dag
+ 
+Dag Vongraven
+Seniorrådgiver
+Norsk Polarinstitutt
+9296 Tromsø
+ 
+Tlf 77750638
+Fax 77750501
+Mon 92059526
+ 
+vongraven@npolar.no
+ 
+ 
+ 
