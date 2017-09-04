@@ -29,18 +29,34 @@ OrcaTag will consist of several parts:
 
 In the first version of OrcaTag, a command line utility will be provided to load pictures into the database. An observer would first copy pictures from her camera memory card into a folder on her computer and then run the ultility with a set of arguments to import the pictures. The load facility would perform several steps for each picture: 
 
-1. relevant metadata items from the picture EXIF data will be extraced and stored in the database
+1. relevant metadata items from the picture EXIF data (https://en.wikipedia.org/wiki/Exif) will be extracted and stored in the database
 1. if the picture is not geotagged and the user has supplied geographical coordinates on the command line, the coordinates (in decimal latitude/longitude) will be added to the database
 1. based on the original picture, lower resolution versions will be generated: e.g. thumbnail, medium, large
 1. the pictures (in all resolutions) will be stored in a long term storage facility, e g AWS S3.
 
 Given a subfolder named "20170829_\andenes" the ultility would be used in a manner similiar to this: 
 
-    % orcatag_load -area "andenes" -lat 69.36 -long 16.04 20170829_\andenes
+    % orcatag_load -u bjorn@biocaching.com -area "andenes" -lat 69.36 -long 16.04 20170829_\andenes
+    Password: ******
     will process 134 pictures in folder 20170829_\andenes...
     Done!
 
+### Database
+The database will contain metadata extracted from the pictures, and also metadata added by the user analysing the pictures. Such metadata will include: 
 
+* date and time of the picture
+* geographical coordinates (latitude/longitude)
+* tags added by the user
+* animal identification added by the user
+* usernames and passwords for users that will have access to OrcaTag
+
+### Search engine
+The search engine will contain a document per picture and will be kept in sync with the metadata in the database. The purpose of the search engine is to provide an efficient means to browse earlier observations of orcas when trying to match the current picture with already identified animals.
+With data data indexed in a search engine, it may be possible to use other available tools such as Kibana to visualize and analyse the data.
+
+### Web-application
+
+### Export facility
 
 
 
