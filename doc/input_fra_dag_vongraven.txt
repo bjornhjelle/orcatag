@@ -1,4 +1,134 @@
 Hei Bjørn
+
+ 
+
+Bildene kan både være av høyre og venstre side, men «protokollen» sier venstre side. Det kan også være at noen bilder ikke har særlig mye av sadelflekken, men at individet likevel er gjenkjennelig pga svært spesielle sett av merker.
+
+ 
+
+La oss si at vi har et godt dokumentert individ, f.eks. individ N-23, men bare med bilder av venstre side. Så har vi et nytt bilde, denne gangen av en høyre side. Det foreligger ingen fotografisk indikasjon på at dette er individ N-23, men dette er noe vi vet pga tidspunkt bildet er tatt og notater. Da må vi ha en mulighet for å direkte lenke dette bildet til individ N-23, slik at denne høyresiden vil assosieres med N-23 fra dette tidspunktet.
+
+ 
+
+Det blir vel i første omgang en arbeidsstasjon på Andenes (Eve Jourdain), og en i Tromsø (meg), men meningen er jo at det skal være mulig for andre å komme inn i samme virtuelle arbeidsstasjon fra hvor som helst. Det kan tenkes at hvem som helst som har lenken skal kunne gjøre en jobb, men eier må til enhver tid kunne se hvem og hvor mange som arbeider med bildene og data. Det må også være slik at alt arbeid som er gjort av andre enn eier og de eier klarerer, ikke går inn i endelig database før det er «godkjent» av eier. Det blir nok uansett ikke veldig mange som jobber samtidig. Dette er vel så mye et håp om å få en optimal arbeidsstasjon for å bearbeide mange bilder som det er et ønske å få veldig mange som kan hjelpe til samtidig. Det er svært viktig at mengden feil i den endelige databasen blir så få som mulig.
+
+ 
+
+Dag
+
+
+
+
+
+
+Et par andre saker jeg lurer på: 
+- bildene som tas (de ca hundre tusen) er de også tatt av hvalens venstreside, med ryggfinnen i profil og det hvite flekken på ryggen godt synlig? Slik som eksempelet du sendte?
+- hvem er de som skal gå igjennom og tagge alle bildene? Er de frivillige? ca hvor mange skal hjelpe til?
+
+Bjørn
+
+
+
+
+
+Ok. Du hører fra meg så snart jeg får tatt en prat med henne.
+
+Dag
+
+ 
+ 
+ 
+ 
+Hele katalogen, altså de ca 800 bildene med hvaler som har fått et unikt nummer, og ca 10-20 eksempelbilder.
+
+(Men IKKE de ca 100 000 bildene.)
+
+Dersom bildene ikke kan deles så er det også greit, jeg trenger bare å vite det. 
+
+Dersom de kan deles vil jeg kunne dele de på github og da er det lettere for andre å bidra.
+
+Jeg tenker at siden alle bildene er i PDF-filen til å laste ned så er det sikkert greit at bildene deles, men vil gjerne ha det bekreftet.
+
+
+Bjørn
+
+
+
+
+
+
+Ok. Will do. Mener du å spørre om de «sample»-filene du vil få kan deles med andre, eller mener du hele katalogen, inkludert nye bilder som skal identifiseres?
+
+Dag
+
+
+
+Fint! Hør også med henne om den samlingen med filer da kan deles med andre, eller om den ikke må komme på avveie.
+Altså kun bildene i katalogen knyttet mot ID - den samme informasjonen som er i PDF-filen som kan lastes ned.
+
+Bjørn
+
+
+
+
+Jeg kom nettopp hjem fra to uker i utlandet i går kveld, og Eve, som er hovedeier av katalogen, har også vært på reisefot men er på vei hjem denne helga. Jeg skal snakke med henne om dette og få ordnet det du ber om.
+
+ 
+
+Dag
+
+
+
+Det ville være nyttig å få tilgang til katalogen som enkeltfiler, og med hvalens ID i filnavnet (eller med en kobling mellom ID og filnavn i en fil ved siden av).
+
+Og så noen eksempler (10-20 til å begynne med) på bildene som skal matches mot katalogen.
+
+Dette for å gjøre en test av teknikkene for bildegjenkjenning, altså gitt et nytt bilde, se om det er mulig å plukke ut fra katalogen de som ligner mest.
+
+mvh
+Bjørn
+
+
+
+
+
+Hei Bjørn, og tusen takk for respons. Katalogen er tilgjengelig på denne nettsida:
+
+ 
+
+https://www.norwegianorca-id.no/
+
+ 
+
+Katalogen kan lastes ned som pdf, men som du ser så kan du få opp individer basert på enkle karakteristikker som allerede er lagt inn. Katalogen er åpent tilgjengelig, men ikke alle data som hefter ved hvert individ, og som jeg ønsker å få opp fra en datafil mens man jobber med bildene av individer .
+
+ 
+
+Den løsningen du skisserer høres spennende ut.
+
+ 
+
+Dag
+
+
+
+Hei igjen, 
+jeg ser at katalogen med ca 800 identifiserte hvaler er tilgjengelig som PDF. 
+På hvilken annen måte er denne katalogen tilgjengelig?
+
+Og er katalogen åpent tilgjengelig, det er ikke noe 'hemmelig' med den?
+
+Jeg jobber i lag med en som kanskje er norges fremste når det gjelder maskinlæring og bildegjenkjenning, og vi tror at dette kan brukes på et vis, f eks at når du skal tagge et bilde så foreslår systemet de 10 hvalene fra katalogen som ligner mest. Dette som en hjelp i det manuelle arbeidet med å identifisere bilder. 
+
+
+mvh
+Bjørn
+
+
+
+
+
+Hei Bjørn
  
 Det kan være flere dyr pr bilde, men individene katalogiseres hver for seg. Hele flokker katalogiseres ikke.
  
