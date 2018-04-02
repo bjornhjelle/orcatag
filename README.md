@@ -3,7 +3,7 @@ OrcaTag is a tool that can be used to analyze pictures of orcas, with the aim to
 
 ## Background
 
-The Norwegian Orca Survey (NOS) has over many years collected photographs of orcas (killer whales) from several locations along the norwegian coast. To learn more about the animals it is important to identify individual animals. NOS has been doing this for a while and as of today close to 900 indiviual orcas has been identified and assigned a unique ID.
+The Norwegian Orca Survey (NOS) has over many years collected photographs of orcas (killer whales) from several locations along the norwegian coast. To learn more about the animals it is important to identify individual animals. NOS has been doing this for a while and as of today more than 900 indiviual orcas has been identified and assigned a unique ID.
 An indiviual orca can uniquely be identified by nicks in its dorsal fin, combined with scars and scratches on its saddle patch (https://www.norwegianorca-id.no/key).
 
 NOS has a growing collection of photographs (approx 100 000 per august 2017) and wants to engage with a network of specialists to help go through the pictures and tag individual orcas so that they can be identified. 
@@ -19,11 +19,12 @@ References:
 
 OrcaTag will consist of several parts: 
 
-* a picture load facility to batch-import pictures
+* a picture upload facility to batch-import pictures
 * a database where metadata would be stored
 * a search engine to help match new pictures with already identified animals
+* an image recognition service that can be used to automate the processing of pictures
 * a web-application / dashboard to use when processing a picture, tagging the orcas in the pictures, etc
-* an export faciltity that can be used to export data in a format suitable for import into other tools, such as Excel
+* an export facility that can be used to export data in a format suitable for import into other tools, such as Excel
 
 ### Loading pictures into OrcaTag
 
@@ -54,8 +55,13 @@ The database will contain metadata extracted from the pictures, and also metadat
 The search engine will contain a document per picture and will be kept in sync with the metadata in the database. The purpose of the search engine is to provide an efficient means to browse earlier observations of orcas when trying to match the current picture with already identified animals.
 With data indexed in a search engine, it may be possible to use other available tools such as Kibana to visualise and analyse the data.
 
+### Image recognition service
+We see two potential uses of machine learning/image recognition in Orcatag: 
+1) given a picture, use image recognition to count the number of nicks in the dorsal fin, if the fin is damaged, etc. This service will add metadata to the picture. 
+2) given a picture, find the orcas in the catalogue who looks the most like the animal in the picture. This service will return a list of the identified orcas that looks most like the one in the picture.
+
 ### Web-application
-The web-application is the main tool for users who will analyse pictures. They will be able to tag individual animals with characteristics, such as damages and nicks to the dorsal fin. If an individual is recognized as one observed before its identity can be added. The web-application will have a 'main-page' that will serve as a desktop for doing the tagging/identification. From the same page it should be possible to browse through pictures, earlier observations, and search through the database for pictures with animals with similar characteristics.
+The web-application is the main tool for users who will analyse pictures. They will be able to tag individual animals with characteristics, such as damages and nicks to the dorsal fin. If an individual is recognized as one observed before, its identity can be added. The web-application will have a 'main-page' that will serve as a desktop for doing the tagging/identification. From the same page it should be possible to browse through pictures (earlier observations), and search through the database for pictures with animals with similar characteristics.
 
 This function will have to be specified and developed based on input from the Norwegian Orca Survey staff members.
 
