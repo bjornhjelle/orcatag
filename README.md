@@ -3,6 +3,12 @@ OrcaTag is a tool that can be used to analyze pictures of orcas, with the aim to
 
 ## Background
 
+* Email-exchange with Dag Vongraven (in norwegian)
+* Functional design
+
+## Background
+
+
 The Norwegian Orca Survey (NOS) has over many years collected photographs of orcas (killer whales) from several locations along the norwegian coast. To learn more about the animals it is important to identify individual animals. NOS has been doing this for a while and as of today more than 900 indiviual orcas has been identified and assigned a unique ID.
 An indiviual orca can uniquely be identified by nicks in its dorsal fin, combined with scars and scratches on its saddle patch (https://www.norwegianorca-id.no/key).
 
