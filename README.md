@@ -2,64 +2,42 @@
 OrcaTag is a tool that can be used to analyze pictures of orcas, with the aim to recognize and track individual animals.
 
 ## Background
-
-The Norwegian Orca Survey (NOS) has over many years collected photographs of orcas (killer whales) from several locations along the norwegian coast. To learn more about the animals it is important to identify individual animals. NOS has been doing this for a while and as of today close to 900 indiviual orcas has been identified and assigned a unique ID.
+The Norwegian Orca Survey (NOS) has over many years collected photographs of orcas (killer whales) from several locations along the norwegian coast. To learn more about the animals it is important to identify individual animals. NOS has been doing this for a while and as of today more than 900 indiviual orcas has been identified and assigned a unique ID.
 An indiviual orca can uniquely be identified by nicks in its dorsal fin, combined with scars and scratches on its saddle patch (https://www.norwegianorca-id.no/key).
 
 NOS has a growing collection of photographs (approx 100 000 per august 2017) and wants to engage with a network of specialists to help go through the pictures and tag individual orcas so that they can be identified. 
 
 OrcaTag will be a tool that can be used by the specialists to do this work.
 
-References: 
+For more information about the project see: 
 
-* The Norwegian Orca Survey, https://www.norwegianorcasurvey.no
-* The Norwegian Orca-ID Catalogue, https://www.norwegianorca-id.no
+* [Email-exchange with Dag Vongraven](doc/input_fra_dag_vongraven.txt) (in norwegian)
+* [Functional design](doc/functional_design.md)
 
-## OrcaTag modules
+## Work packages
+To manage the progress of the project, a set of work packages have been identified. Contributors should feel free to contribute to any of these or to suggest new work packages. Below are the work packages defined initially. For each work package a short description should be given and a link to a document with more details.  
 
-OrcaTag will consist of several parts: 
+## WP 1 - Technical architecture
+OrcaTag will utilise a cloud-based architecture where managed infrastructure services are used where available to minimize operation efforts. Functionality will be developed as microservices with loose coupling. This should make it feasible to develop parts independent of other parts, possibly in different programming languages according to a contributor's preferences. For more details see [here](doc/wp_1_technical_architecture.md).
 
-* a picture load facility to batch-import pictures
-* a database where metadata would be stored
-* a search engine to help match new pictures with already identified animals
-* a web-application / dashboard to use when processing a picture, tagging the orcas in the pictures, etc
-* an export faciltity that can be used to export data in a format suitable for import into other tools, such as Excel
+## WP 2 - Photo upload service
+For more details see [here](doc/wp_2_photo_upload_service.md).
 
-### Loading pictures into OrcaTag
+## WP 2 - Metadata database and search engine
+For more details see [here](doc/wp_3_metadata_and_search.md).
 
-In the first version of OrcaTag, a command line utility will be provided to load pictures into the database. An observer would first copy pictures from her camera memory card into a folder on her computer and then run the ultility with a set of arguments to import the pictures. The load facility would perform several steps for each picture: 
+## WP 4 - UX and graphical design
+For more details see [here](doc/wp_4_ux_and_design).
 
-1. relevant metadata items from the picture EXIF data (https://en.wikipedia.org/wiki/Exif) will be extracted and stored in the database
-1. if the picture is not geotagged and the user has supplied geographical coordinates on the command line, the coordinates (in decimal latitude/longitude) will be added to the database
-1. based on the original picture, lower resolution versions will be generated: e.g. thumbnail, medium, large
-1. the pictures (in all resolutions) will be stored in a long term storage facility, e g AWS S3.
+## WP 5 - Autotagging of photos
+For more details see [here](doc/wp_5_autotagging.md).
 
-Given a subfolder named "20170829_\andenes" the ultility would be used in a manner similiar to this: 
+## WP 6 - To be defined
+For more details see [here](doc/wp_6_tbd.md).
 
-    % orcatag_load -u bjorn@biocaching.com -area "andenes" -lat 69.36 -long 16.04 20170829_\andenes
-    Password: ******
-    will process 134 pictures in folder 20170829_\andenes...
-    Done!
+## WP 7 - To be defined
+For more details see [here](doc/wp_7_tbd.md).
 
-### Database
-The database will contain metadata extracted from the pictures, and also metadata added by the user analysing the pictures. Such metadata will include: 
-
-* date and time of the picture
-* geographical coordinates (latitude/longitude)
-* tags added by the user
-* animal identification added by the user
-* usernames and passwords for users that will have access to OrcaTag
-
-### Search engine
-The search engine will contain a document per picture and will be kept in sync with the metadata in the database. The purpose of the search engine is to provide an efficient means to browse earlier observations of orcas when trying to match the current picture with already identified animals.
-With data indexed in a search engine, it may be possible to use other available tools such as Kibana to visualise and analyse the data.
-
-### Web-application
-The web-application is the main tool for users who will analyse pictures. They will be able to tag individual animals with characteristics, such as damages and nicks to the dorsal fin. If an individual is recognized as one observed before its identity can be added. The web-application will have a 'main-page' that will serve as a desktop for doing the tagging/identification. From the same page it should be possible to browse through pictures, earlier observations, and search through the database for pictures with animals with similar characteristics.
-
-This function will have to be specified and developed based on input from the Norwegian Orca Survey staff members.
-
-### Export facility
-To be defined.
-
+## WP 8 - To be defined
+For more details see [here](doc/wp_8_tbd.md).
 
