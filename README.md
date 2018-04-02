@@ -57,7 +57,7 @@ With data indexed in a search engine, it may be possible to use other available 
 
 ### Image recognition service
 We see two potential uses of machine learning/image recognition in Orcatag: 
-1) given a picture, use image recognition to count the number of nicks in the dorsal fin, if the fin is damaged, etc. This service will add metadata to the picture. 
+1) given a picture, use image recognition to count the number of nicks in the dorsal fin, if the fin is damaged, the gender, etc. This service will add metadata to the picture. 
 2) given a picture, find the orcas in the catalogue who looks the most like the animal in the picture. This service will return a list of the identified orcas that looks most like the one in the picture.
 
 ### Web-application
