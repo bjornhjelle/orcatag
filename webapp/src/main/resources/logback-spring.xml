@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/-->
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <springProfile name="aws-localhost">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.apache.kafka" level="WARN"/>
+        <logger name="io.confluent" level="WARN"/>
+        <logger name="no.ruter.amqp2kafka.consumers.PilotfishGpsConsumer" level="WARN"/>
+        <logger name="no.ruter.amqp2kafka.consumers.NobinaGpsConsumer" level="WARN"/>
+        <logger name="no.ruter.amqp2kafka.consumers.FaltcomGpsConsumer" level="WARN"/>
+        <logger name="no.ruter.amqp2kafka.consumers.GpsConsumer" level="WARN"/>
+        <logger name="no.ruter.amqp2kafka.consumers.InitApcConsumer" level="WARN"/>
+
+    </springProfile>
+
+
+
+</configuration>
