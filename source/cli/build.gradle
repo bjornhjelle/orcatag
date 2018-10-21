@@ -1,0 +1,136 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.5.RELEASE'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.9"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'org.unbroken-dome.test-sets' version '1.5.1'
+    id 'com.github.ksoichiro.build.info' version '0.2.0' // https://github.com/ksoichiro/gradle-build-info-plugin
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+}
+
+ext {
+    springBootVersion = '2.0.5.RELEASE'
+    springCloudVersion = 'Finchley.SR1'
+    lombokVersion = '1.18.2'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'net.ltgt.apt'
+
+jar {
+    baseName = 'orcatag'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+
+
+mainClassName="no.orcatag.Application"
+
+testSets {
+    integrationTest { dirName = 'test-integration' }
+}
+
+bootRun {
+    systemProperties = System.properties
+}
+
+test {
+    systemProperties = System.properties
+}
+
+integrationTest {
+    systemProperties = System.properties
+}
+
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+        exceptionFormat "full"
+    }
+}
+
+integrationTest {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+        exceptionFormat "full"
+    }
+}
+
+
+idea {
+    module {
+        outputDir file('build/classes/main')
+        testOutputDir file('build/classes/test')
+    }
+}
+
+defaultTasks 'integrationtest', 'test'
+
+repositories { mavenCentral() }
+
+configurations {
+    compile.exclude module: "slf4j-log4j12"
+}
+
+dependencies {
+    // source sets gradle plugin needs this for integration tests to run
+    integrationTestCompile(
+            sourceSets.test.output
+    )
+    // spring boot stuff
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile "org.springframework.boot:spring-boot-configuration-processor"
+
+
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.1'
+
+
+    // lombok
+    compileOnly('org.projectlombok:lombok')
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    apt("org.projectlombok:lombok:$lombokVersion")
+    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // TIKA
+    compile group: 'org.apache.tika', name: 'tika-core', version: '1.19'
+    compile group: 'org.apache.tika', name: 'tika-parsers', version: '1.19'
+    //compile group: 'org.apache.tika', name: 'tika-exiftool', version: '1.6-20160315'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
+    compile group: 'org.apache.pdfbox', name: 'jbig2-imageio', version: '3.0.0'
+
+
+    // other integrationtest dependencies
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+    //integrationTestCompile group: 'org.testcontainers', name: 'testcontainers', version: '1.9.0'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+
+
+    testCompile 'org.slf4j:slf4j-api:1.7.5'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}

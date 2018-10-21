@@ -1,0 +1,43 @@
+server.port: 8080
+logging.level.root: INFO
+
+spring:
+  security:
+    user:
+      user: orcatag
+      password: test
+
+s3:
+  rootFolder: "orcatag-dev"
+  endpointUrl: https://s3-website-eu-west-1.amazonaws.com
+  accessKey: <ACCESS KEY NAME>
+  secretKey: <SECRET ACCESS KEY>
+
+#amazonProperties:
+#  endpointUrl: https://s3-website-eu-west-1.amazonaws.com
+#  accessKey: AKIAJH43HY7PVRDR6BWA
+#  secretKey: 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
+#  bucketName: orcatag-dev
+
+
+#spring:
+#  jpa:
+#    properties:
+#      hibernate:
+#        ddl-auto: none
+#        dialect: org.hibernate.dialect.MySQL5Dialect
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/db_example?useSSL=false
+#    username: springuser
+#    password: ThePassword
+#    driverClassName: com.mysql.jdbc.Driver
+
+## H2
+#spring.h2.console.enabled=true
+#spring.h2.console.path=/h2
+## Datasource
+#spring.datasource.url=jdbc:h2:file:~/test
+#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.datasource.driver-class-name=org.h2.Driver

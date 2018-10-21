@@ -1,5 +1,6 @@
 package com.biocaching.orca.models;
 
+import lombok.Data;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Store;
 import org.springframework.stereotype.Indexed;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.ZonedDateTime;
 
+@Data
 @Indexed
 @Entity
 public class Picture {
@@ -30,7 +32,7 @@ public class Picture {
     @Field
     private ZonedDateTime updatedAt;
 
-
+/*
     //getters n setters
 
     public long getId() {
@@ -71,5 +73,5 @@ public class Picture {
 
     public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
+    }*/
 }

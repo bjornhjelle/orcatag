@@ -7,4 +7,4 @@ Applications and services will be developed as micro services and deployed as [A
 Storage of structured data, such as metadata for the photos, will be stored in [AWS RDS](https://aws.amazon.com/rds/) with an open source database engine such as PostgreSQL, MariaDB, MySQL or similar.
 Storage of documents for efficient search should be stored in [AWS Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/).
 
-TODO: make an illustration
+TODO: make an illustration (see ppt in doc-directory)
