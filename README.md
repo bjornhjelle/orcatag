@@ -23,13 +23,13 @@ OrcaTag will utilise a cloud-based architecture where managed infrastructure ser
 ## WP 2 - Photo upload service
 For more details see [here](doc/wp_2_photo_upload_service.md).
 
-## WP 2 - Metadata database and search engine
+## WP 3 - Metadata database and search engine
 For more details see [here](doc/wp_3_metadata_and_search.md).
 
 ## WP 4 - UX and graphical design
 For more details see [here](doc/wp_4_ux_and_design).
 
-## WP 5 - Autotagging of photos
+## WP 5 - Autotagging of photos, similarity search
 For more details see [here](doc/wp_5_autotagging.md).
 
 ## WP 6 - To be defined
