@@ -38,15 +38,17 @@ public class DirectoryProcessor {
         if (!folderFile.exists() || !folderFile.isDirectory()) {
             throw new IllegalArgumentException(arguments.getDirectory() + " is not a directory");
         }
+        System.out.println(arguments.getDirectory());
         try (Stream<Path> paths = Files.walk(Paths.get(arguments.getDirectory()))) {
             paths
+                    // .forEach(f -> System.out.println(f.getFileName()));
                     .filter(Files::isRegularFile)
                     .forEach(file -> addToListIfFile(list, file, arguments));
         }
         Folder folder = Folder.builder().pictures(list).foldername(foldername).build();
         Iterator<Picture> iterator = list.iterator();
         while(iterator.hasNext()) {
-            iterator.next().setFolder(folder);
+            iterator.next().setFolderName(folder.getFoldername());
         }
         return folder;
     }
@@ -55,6 +57,7 @@ public class DirectoryProcessor {
 
         String mimetype = new MimetypesFileTypeMap().getContentType(file.toFile());
         String type = mimetype.split("/")[0];
+        System.out.println(type.equals("image"));
         if (type.equals("image")) {
            //ExifObject exifObject = null;
             try {

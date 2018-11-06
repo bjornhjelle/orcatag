@@ -19,7 +19,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * Created by bjorn on 07/10/2018.
  */
-public class DirectoryProcessorTest {
+public abstract class DirectoryProcessorTest {
 
     //private DirectoryProcessor directoryProcessor;
 

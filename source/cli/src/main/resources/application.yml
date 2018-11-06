@@ -1,3 +1,12 @@
 spring:
     main:
         banner-mode: "off"
+
+# should we disable web in this project?
+
+
+
+orcatag:
+  url: http://localhost:8081
+  username: orcatag
+  password: test

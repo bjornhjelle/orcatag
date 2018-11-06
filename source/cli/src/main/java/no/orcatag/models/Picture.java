@@ -17,12 +17,13 @@ public class Picture {
     private String filename;
     private ExifObject exifObject;
     private Metadata metadata;
-    private Folder folder;
+    private String folderName;
+
     public Picture(Folder folder){
-        this.folder = folder;
+        this.folderName = folder.getFoldername();
     }
 
     public String getFullFilename() {
-        return folder.getFoldername() + "/" + this.filename;
+        return this.folderName + "/" + this.filename;
     }
 }

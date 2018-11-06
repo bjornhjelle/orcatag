@@ -18,10 +18,14 @@ plugins {
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'net.ltgt.apt'
+
+mainClassName="no.orcatag.Application"
 
 bootJar {
     baseName = 'orcatag'

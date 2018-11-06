@@ -1,4 +1,6 @@
-server.port: 8080
+server:
+  port: 8081
+
 logging.level.root: INFO
 
 spring:

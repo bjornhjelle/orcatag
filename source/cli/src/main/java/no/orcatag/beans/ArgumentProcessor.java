@@ -25,7 +25,7 @@ public class ArgumentProcessor
 
     public static void usage() {
         System.out.println("Usage:");
-        System.out.println("$ oractag --area=<area name> --latiude=<latitude> --longitude=<longitude> <directory>");
+        System.out.println("$ oractag --username=<username> --area=<area name> --latiude=<latitude> --longitude=<longitude> <directory>");
     }
 
 

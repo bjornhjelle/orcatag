@@ -85,6 +85,8 @@ repositories { mavenCentral() }
 
 configurations {
     compile.exclude module: "slf4j-log4j12"
+    compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude group: 'org.apache.tomcat'
 }
 
 dependencies {
@@ -93,13 +95,14 @@ dependencies {
             sourceSets.test.output
     )
     // spring boot stuff
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile "org.springframework.boot:spring-boot-configuration-processor"
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+
+    implementation "org.springframework.boot:spring-boot-configuration-processor"
 
 
-    compile group: 'org.apache.commons', name: 'commons-text', version: '1.1'
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.1'
 
 
     // lombok
@@ -112,11 +115,11 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     // TIKA
-    compile group: 'org.apache.tika', name: 'tika-core', version: '1.19'
-    compile group: 'org.apache.tika', name: 'tika-parsers', version: '1.19'
+    implementation group: 'org.apache.tika', name: 'tika-core', version: '1.19'
+    implementation group: 'org.apache.tika', name: 'tika-parsers', version: '1.19'
     //compile group: 'org.apache.tika', name: 'tika-exiftool', version: '1.6-20160315'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
-    compile group: 'org.apache.pdfbox', name: 'jbig2-imageio', version: '3.0.0'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
+    implementation group: 'org.apache.pdfbox', name: 'jbig2-imageio', version: '3.0.0'
 
 
     // other integrationtest dependencies

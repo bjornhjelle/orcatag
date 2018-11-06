@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Created by bjorn on 12/10/2018.
  */
-public class UploadService {
+public class  UploadService {
 
     public void upload(String filename) {
         // first check that the file exists and can be read

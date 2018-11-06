@@ -23,7 +23,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 /**
  * Created by bjorn on 07/10/2018.
  */
-public class FileUploaderTest {
+public abstract class FileUploaderTest {
 
     //private DirectoryProcessor directoryProcessor;
 
