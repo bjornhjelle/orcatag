@@ -32,10 +32,10 @@ For more details see [here](doc/wp_4_ux_and_design).
 ## WP 5 - Autotagging of photos, similarity search
 For more details see [here](doc/wp_5_autotagging.md).
 
-## WP 6 - To be defined
+## WP 6 - Develop Web Page
 For more details see [here](doc/wp_6_tbd.md).
 
-## WP 7 - To be defined
+## WP 7 - Study existing solutions
 For more details see [here](doc/wp_7_tbd.md).
 
 ## WP 8 - To be defined
