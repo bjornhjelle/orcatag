@@ -9,7 +9,7 @@ NOS has a growing collection of photographs (approx 100 000 per august 2017) and
 
 OrcaTag will be a tool that can be used by the specialists to do this work.
 
-For more information about the project see: 
+For more information about the project see:
 
 * [Email-exchange with Dag Vongraven](doc/input_fra_dag_vongraven.txt) (in norwegian)
 * [Functional design](doc/functional_design.md)
