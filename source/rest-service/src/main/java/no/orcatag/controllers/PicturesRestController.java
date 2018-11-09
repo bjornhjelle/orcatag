@@ -3,17 +3,18 @@ package no.orcatag.controllers;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.CreateBucketRequest;
-import com.amazonaws.services.s3.model.ListBucketsRequest;
-import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.*;
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.config.OrcatagProperties;
 import no.orcatag.config.S3Properties;
 import no.orcatag.models.Folder;
+import no.orcatag.models.Picture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -39,10 +40,40 @@ public class PicturesRestController {
 
     @RequestMapping(value = "/folders", method = RequestMethod.POST)
     public List<String> greeting(@RequestBody Folder folder) {
-        log.info("will create S3 folder: {}/{}", s3Properties.getRootFolder(), folder.getFoldername());
-        String bucketName = String.format("{}/{}", s3Properties.getRootFolder(), folder.getFoldername());
-        System.out.println(bucketName);
+
         List<String> list = new ArrayList<>();
+
+        // create rootBucket if it does not exist
+        String rootBucketName = s3Properties.getRootBucket();
+        String bucketName = String.format("%s/%s", s3Properties.getRootBucket(), folder.getFoldername());
+        if (amazonClient.doesBucketExistV2(rootBucketName)) {
+            log.info("Root bucket exists");
+        } else {
+            Bucket rootBucket = amazonClient.createBucket(rootBucketName);
+            if (amazonClient.doesBucketExistV2(rootBucketName)) {
+                log.info("Successfully created root bucket {}", rootBucketName);
+            } else {
+                log.error("Successfully created root bucket {}", rootBucketName);
+            }
+        }
+
+        // check if bucket already exists
+        if (amazonClient.doesObjectExist(rootBucketName, folder.getFoldername())) {
+            log.info("Folder {} exists in rootBucket {}", folder.getFoldername(), rootBucketName);
+        } else {
+            log.info("Folder {} does not exist in rootBucket {}, will be created", folder.getFoldername(), rootBucketName);
+        }
+
+        for (Picture picture: folder.getPictures()) {
+            log.info(picture.getFullFilename());
+            PutObjectResult putObjectResult = amazonClient.putObject(rootBucketName, picture.getFullFilename(), "");
+            log.info("Uploaded {} bytes.", putObjectResult.getMetadata().getContentLength());
+        }
+        return list;
+
+
+/*        log.info("will create bucket in rootBucket: {}", folder.getFoldername());
+
         try {
             System.out.println("exists: " + amazonClient.doesBucketExistV2(bucketName));
             if (!amazonClient.doesBucketExistV2(bucketName)) {
@@ -63,13 +94,13 @@ public class PicturesRestController {
             e.printStackTrace();
         }
 
-        return list;
+        return list;*/
     }
 
     @RequestMapping("/list")
     public List<String> list(@RequestParam(value="folderName", defaultValue="") String folderName) {
         log.info("will get contents of S3 folder: " + folderName);
-        log.info(s3Properties.getRootFolder());
+        log.info(s3Properties.getRootBucket());
         List<Bucket> buckets = amazonClient.listBuckets();
         Iterator<Bucket> iterator = buckets.iterator();
         List<String> list = new ArrayList<>();
@@ -84,6 +115,15 @@ public class PicturesRestController {
         return list;
     }
 
+
+    @RequestMapping(value="/uploadFile", method=RequestMethod.POST)
+    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
+        makeSureRootBucketExists();
+        return uploadTheFile(file);
+    }
+
+
+
     @RequestMapping(value="/uploadFolder", method=RequestMethod.POST)
     public @ResponseBody Folder upload(@RequestBody Folder folder){
         log.info(folder.getFoldername());
@@ -91,4 +131,48 @@ public class PicturesRestController {
     }
 
 
+    private File convertMultiPartToFile(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
+    }
+
+    private String generateFileName(MultipartFile multiPart) {
+        return multiPart.getOriginalFilename().replace(" ", "_");
+    }
+
+    private void uploadFileTos3bucket(String fileName, File file) {
+        amazonClient.putObject(new PutObjectRequest(s3Properties.getRootBucket(), fileName, file)
+                .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
+    }
+
+    private String uploadTheFile(MultipartFile multipartFile) {
+        String fileUrl = "";
+        try {
+            File file = convertMultiPartToFile(multipartFile);
+            String fileName = generateFileName(multipartFile);
+            fileUrl = s3Properties.getEndpointUrl() + "/" + s3Properties.getRootBucket() + "/" + fileName;
+            uploadFileTos3bucket(fileName, file);
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fileUrl;
+    }
+
+    private void makeSureRootBucketExists() {
+        String rootBucketName = s3Properties.getRootBucket();
+        if (amazonClient.doesBucketExistV2(rootBucketName)) {
+            log.info("Root bucket exists");
+        } else {
+            Bucket rootBucket = amazonClient.createBucket(rootBucketName);
+            if (amazonClient.doesBucketExistV2(rootBucketName)) {
+                log.info("Successfully created root bucket {}", rootBucketName);
+            } else {
+                log.error("Successfully created root bucket {}", rootBucketName);
+            }
+        }
+    }
 }

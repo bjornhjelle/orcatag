@@ -62,17 +62,17 @@ public class Application implements CommandLineRunner {
             System.out.println(String.format("Read directory " + arguments.getDirectory()));
             Folder folder = directoryProcessor.getFolder();
             System.out.println(String.format("Found %d files", folder.getPictures().size()));
-            System.out.println(String.format("Will upload to rest server:" + folder.getFoldername()));
+            System.out.println(String.format("Will upload to rest server...:" + folder.getFoldername()));
 
             ObjectMapper objectMapper = new ObjectMapper();
             System.out.println(objectMapper.writeValueAsString(folder));
 
-            List<String> results = this.restServiceClient.createFolder(folder);
-            results.stream().forEach(str -> log.info(str));
+            //List<String> results = this.restServiceClient.createFolder(folder);
+            //results.stream().forEach(str -> log.info(str));
 
             for (Picture picture : folder.getPictures()) {
 
-
+                this.restServiceClient.uploadFile(picture);
 /*                try (InputStream is = Files.newInputStream(Paths.get(folder.getFoldername() + "/" + picture.getFilename()));
                      DigestInputStream dis = new DigestInputStream(is, md)) {
   *//* Read decorated stream (dis) to EOF as normal... *//*

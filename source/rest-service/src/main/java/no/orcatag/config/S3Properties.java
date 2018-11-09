@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix="s3")
 @Configuration
 public class S3Properties {
-    private String rootFolder;
+    private String rootBucket;
+    private String endpointUrl;
     private String accessKey;
     private String secretKey;
 }
