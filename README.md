@@ -9,7 +9,7 @@ NOS has a growing collection of photographs (approx 100 000 per august 2017) and
 
 OrcaTag will be a tool that can be used by the specialists to do this work.
 
-For more information about the project see: 
+For more information about the project see:
 
 * [Email-exchange with Dag Vongraven](doc/input_fra_dag_vongraven.txt) (in norwegian)
 * [Functional design](doc/functional_design.md)
@@ -32,10 +32,10 @@ For more details see [here](doc/wp_4_ux_and_design).
 ## WP 5 - Autotagging of photos, similarity search
 For more details see [here](doc/wp_5_autotagging.md).
 
-## WP 6 - To be defined
+## WP 6 - Develop Web Page
 For more details see [here](doc/wp_6_tbd.md).
 
-## WP 7 - To be defined
+## WP 7 - Study existing solutions
 For more details see [here](doc/wp_7_tbd.md).
 
 ## WP 8 - To be defined
