@@ -38,7 +38,7 @@ public class DirectoryProcessor {
         if (!folderFile.exists() || !folderFile.isDirectory()) {
             throw new IllegalArgumentException(arguments.getDirectory() + " is not a directory");
         }
-        System.out.println(arguments.getDirectory());
+        log.info(arguments.getDirectory());
         try (Stream<Path> paths = Files.walk(Paths.get(arguments.getDirectory()))) {
             paths
                     // .forEach(f -> System.out.println(f.getFileName()));
@@ -57,7 +57,7 @@ public class DirectoryProcessor {
 
         String mimetype = new MimetypesFileTypeMap().getContentType(file.toFile());
         String type = mimetype.split("/")[0];
-        System.out.println(type.equals("image"));
+        log.info("Is image: {}", type.equals("image"));
         if (type.equals("image")) {
            //ExifObject exifObject = null;
             try {
@@ -80,8 +80,8 @@ public class DirectoryProcessor {
                 // get the md5 hash
                 fileInputStream = new FileInputStream(file.toFile());
                 String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(fileInputStream);
-                System.out.println(file.getFileName().toString() + ":" + md5);
-                System.out.println(exifObject);
+                log.info(file.getFileName().toString() + ":" + md5);
+                log.info("exif: {}", exifObject);
 
                 fileInputStream.close();
 

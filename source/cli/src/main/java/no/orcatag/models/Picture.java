@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
 
 /**
  * Created by bjorn on 12/10/2018.
@@ -25,5 +28,9 @@ public class Picture {
 
     public String getFullFilename() {
         return this.folderName + "/" + this.filename;
+    }
+
+    public String getS3Path() {
+        return this.folderName + "/" +  FilenameUtils.getBaseName(this.filename) + "/" + this.filename;
     }
 }

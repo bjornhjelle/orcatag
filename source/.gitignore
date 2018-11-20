@@ -2,6 +2,9 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
+rest-service/docker-compose/data
+rest-service/out
+
 ### STS ###
 .apt_generated
 .classpath

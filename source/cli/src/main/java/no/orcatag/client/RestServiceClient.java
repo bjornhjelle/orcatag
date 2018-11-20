@@ -3,15 +3,23 @@ package no.orcatag.client;
 import lombok.extern.slf4j.Slf4j;
 import no.orcatag.models.Folder;
 import no.orcatag.models.Picture;
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,6 +33,16 @@ public class RestServiceClient {
     public RestServiceClient(HttpClient httpClient) {
         this.httpClient = httpClient;
     }
+
+    public List<String> list() {
+        String url = httpClient.getUrl() + "/list";
+        log.info("kaller getRestTemplate");
+        ResponseEntity<List<String>> response = httpClient.getRestTemplate().exchange(
+                url, HttpMethod.GET, httpClient.getRequest(), new ParameterizedTypeReference<List<String>>(){});
+        log.info("Called REST-service, status code:" + response.getStatusCode().toString());
+        return response.getBody();
+    }
+
 
     public List<String> createFolder(Folder folder) {
         String url = httpClient.getUrl() + "/folders";
@@ -42,38 +60,42 @@ public class RestServiceClient {
         return response.getBody();
     }
 
-    public List<String> uploadFile(Picture picture) {
+    public String uploadFile(Picture picture) throws IOException {
         String url = httpClient.getUrl() + "/uploadFile";
 
         RestTemplate restTemplate = httpClient.getRestTemplate();
-        //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        //restTemplate.getMessageConverters().add();
 
-        HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = httpClient.getHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-/*
-        System.out.println(folder.getFoldername());
-        HttpEntity<?> httpEntity  =  new HttpEntity<Folder>(folder, httpClient.getHeaders());
-*/
+        FormHttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+        formHttpMessageConverter.addPartConverter(new MappingJackson2HttpMessageConverter());
+        formHttpMessageConverter.addPartConverter(new ResourceHttpMessageConverter()); // This is hope driven programming
 
-        System.out.println("kaller getRestTemplate....");
 
-        MultiValueMap<String, Object> body
-                = new LinkedMultiValueMap<>();
+        restTemplate.setMessageConverters(Arrays.asList(
+                formHttpMessageConverter
+                ,new StringHttpMessageConverter()
+                ,new MappingJackson2HttpMessageConverter())
+        );
 
+        LinkedMultiValueMap<String, String> headerMap = new LinkedMultiValueMap<>();
+        headerMap.add("Content-disposition", "form-data; name=file; filename=" + picture.getFullFilename());
+        //headerMap.add("Content-type", "application/pdf");
         File file = new File(picture.getFullFilename());
-        log.info("File {} exists: ", picture.getFullFilename(), file.exists());
-        body.add("file", file);
+        HttpEntity<byte[]> doc = new HttpEntity<byte[]>(FileUtils.readFileToByteArray(file), headerMap);
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity
-                = new HttpEntity<>(body, headers);
-
-
-        ResponseEntity<String> response = restTemplate
-                .postForEntity(url, requestEntity, String.class);
+        LinkedMultiValueMap<String, Object> multipartReqMap = new LinkedMultiValueMap<>();
+        multipartReqMap.add("file", doc);
+        multipartReqMap.add("picture", picture);
 
 
-        return new ArrayList<>();
+        HttpEntity<LinkedMultiValueMap<String, Object>> reqEntity = new HttpEntity<>(multipartReqMap, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, reqEntity, String.class);
+
+
+        return response.getStatusCode().toString();
 
 
 

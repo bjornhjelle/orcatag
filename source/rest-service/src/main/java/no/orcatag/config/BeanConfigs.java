@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * Created by bjorn on 20/10/2018.
@@ -44,5 +45,13 @@ public class BeanConfigs implements AWSCredentialsProvider {
     @Override
     public void refresh() {
 
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+        commonsMultipartResolver.setDefaultEncoding("utf-8");
+        commonsMultipartResolver.setMaxUploadSize(50000000);
+        return commonsMultipartResolver;
     }
 }

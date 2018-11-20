@@ -56,38 +56,36 @@ public class Application implements CommandLineRunner {
             log.debug(arg);
         }
         try {
+
+            List<String> s3Buckets = this.restServiceClient.list();
+            log.info("S3 buckets:");
+            log.info(s3Buckets.toString());
+            log.info("--------------------------------");
+
             Arguments arguments = ArgumentProcessor.process(new DefaultApplicationArguments(args));
             log.info("arguments: " + arguments);
             DirectoryProcessor directoryProcessor = new DirectoryProcessor(arguments);
-            System.out.println(String.format("Read directory " + arguments.getDirectory()));
+            log.info("Read files from directory {}", arguments.getDirectory());
             Folder folder = directoryProcessor.getFolder();
-            System.out.println(String.format("Found %d files", folder.getPictures().size()));
-            System.out.println(String.format("Will upload to rest server...:" + folder.getFoldername()));
+            log.info("Found %d files", folder.getPictures().size());
+            System.out.println(String.format("Will upload contents of %s to OrcaTag.", folder.getFoldername()));
 
             ObjectMapper objectMapper = new ObjectMapper();
-            System.out.println(objectMapper.writeValueAsString(folder));
+            log.debug(objectMapper.writeValueAsString(folder));
 
             //List<String> results = this.restServiceClient.createFolder(folder);
             //results.stream().forEach(str -> log.info(str));
 
             for (Picture picture : folder.getPictures()) {
 
-                this.restServiceClient.uploadFile(picture);
-/*                try (InputStream is = Files.newInputStream(Paths.get(folder.getFoldername() + "/" + picture.getFilename()));
-                     DigestInputStream dis = new DigestInputStream(is, md)) {
-  *//* Read decorated stream (dis) to EOF as normal... *//*
+                System.out.println(String.format("Upload %s...", picture.getFilename()));
+                String results = this.restServiceClient.uploadFile(picture);
+                if (!results.equals("200")) {
+                    log.error("Results: {}, failed to upload?", results);
                 }
-                byte[] digest = md.digest();
-                String fx = "%0" + (md.getDigestLength() * 2) + "x";
-                System.out.println(String.format(fx, new BigInteger(1, md.digest())));*/
-
-
-                System.out.print(picture.getFilename() + "... ");
-
-                // will call FileUploader here...
-
-                System.out.println("done!");
+                //list.stream().forEach((s) -> System.out.println(s));
             }
+            System.out.println("done!");
 
         } catch (IllegalArgumentException ex) {
             System.exit(-1);

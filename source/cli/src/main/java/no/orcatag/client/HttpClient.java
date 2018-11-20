@@ -38,12 +38,14 @@ public class HttpClient {
     public HttpClient(String url, String username, String password) {
         this.url = url;
         String plainCreds = String.format("%s:%s", username, password);
+        //System.out.println(plainCreds);
         byte[] plainCredsBytes = plainCreds.getBytes();
         byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
         String base64Creds = new String(base64CredsBytes);
 
         headers = new HttpHeaders();
         headers.add("Authorization", "Basic " + base64Creds);
+        this.request = new HttpEntity<String>(headers);
         restTemplate = new RestTemplate();
         //request = new HttpEntity<String>(headers);
     }
