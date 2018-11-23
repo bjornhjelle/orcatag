@@ -179,7 +179,7 @@ public class PicturesRestController {
 
     private void uploadFileTos3bucket(String fileName, File file, Picture picture) {
         PutObjectResult putObjectResult = amazonClient.putObject(new PutObjectRequest(s3Properties.getRootBucket(), fileName, file)
-                .withCannedAcl(CannedAccessControlList.PublicRead));
+                .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
         System.out.println(putObjectResult.getContentMd5());
         System.out.println(picture.getMd5());
 
