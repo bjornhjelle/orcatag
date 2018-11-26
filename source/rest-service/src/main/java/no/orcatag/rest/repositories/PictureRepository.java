@@ -1,6 +1,6 @@
-package no.orcatag.repositories;
+package no.orcatag.rest.repositories;
 
-import no.orcatag.models.StoredPicture;
+import no.orcatag.rest.models.StoredPicture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

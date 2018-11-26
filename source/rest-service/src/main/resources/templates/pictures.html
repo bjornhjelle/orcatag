@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OrcaTag - Pictures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        img {height: 300px; width: 600px;}
+    </style>
+</head>
+
+<body>
+<h1>Pictures in the folder</h1>
+<p th:text="'number of pictures: ' + ${pictures.size()}" />
+<div class="container">
+    <div th:if="${not #lists.isEmpty(pictures)}">
+        <table class="table table-striped">
+            <tr th:each="picture : ${pictures}">
+                <td th:text="${picture.filename}"></td>
+                <td>
+                    <img th:src="@{${picture.getSignedUrl(bucket)}}"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

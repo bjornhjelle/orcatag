@@ -1,4 +1,4 @@
-package no.orcatag.models;
+package no.orcatag.rest.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

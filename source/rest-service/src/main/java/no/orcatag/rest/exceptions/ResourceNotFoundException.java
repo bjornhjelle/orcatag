@@ -1,4 +1,4 @@
-package no.orcatag.exceptions;
+package no.orcatag.rest.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

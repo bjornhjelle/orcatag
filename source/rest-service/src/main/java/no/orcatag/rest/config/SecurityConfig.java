@@ -1,4 +1,4 @@
-package no.orcatag.config;
+package no.orcatag.rest.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;

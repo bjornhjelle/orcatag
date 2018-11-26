@@ -1,7 +1,7 @@
-package no.orcatag.repositories;
+package no.orcatag.rest.repositories;
 
 import no.orcatag.models.Folder;
-import no.orcatag.models.StoredFolder;
+import no.orcatag.rest.models.StoredFolder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

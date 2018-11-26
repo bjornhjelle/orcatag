@@ -1,6 +1,6 @@
-package no.orcatag.controllers;
+package no.orcatag.rest.controllers;
 
-import no.orcatag.models.Greeting;
+import no.orcatag.rest.models.Greeting;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

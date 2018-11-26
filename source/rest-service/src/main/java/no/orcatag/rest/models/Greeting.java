@@ -1,4 +1,4 @@
-package no.orcatag.models;
+package no.orcatag.rest.models;
 
 public class Greeting {
 

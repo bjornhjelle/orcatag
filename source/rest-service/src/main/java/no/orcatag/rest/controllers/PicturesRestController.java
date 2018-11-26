@@ -1,27 +1,39 @@
-package no.orcatag.controllers;
+package no.orcatag.rest.controllers;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.config.S3Properties;
+import net.coobird.thumbnailator.Thumbnails;
+import no.orcatag.rest.config.S3Properties;
 import no.orcatag.models.Folder;
 import no.orcatag.models.Picture;
-import no.orcatag.models.StoredFolder;
-import no.orcatag.models.StoredPicture;
-import no.orcatag.repositories.FolderRepository;
-import no.orcatag.repositories.PictureRepository;
+import no.orcatag.rest.models.StoredFolder;
+import no.orcatag.rest.models.StoredPicture;
+import no.orcatag.rest.repositories.FolderRepository;
+import no.orcatag.rest.repositories.PictureRepository;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
+
+import static javax.imageio.ImageIO.*;
 
 /**
  * Created by bjorn on 20/10/2018.
@@ -73,7 +85,7 @@ public class PicturesRestController {
             log.info("StoredFolder {} does not exist in rootBucket {}, will be created", folder.getFoldername(), rootBucketName);
         }
 
-        for (Picture picture: folder.getPictures()) {
+        for (Picture picture : folder.getPictures()) {
             log.info(picture.getFullFilename());
             PutObjectResult putObjectResult = amazonClient.putObject(rootBucketName, picture.getFullFilename(), "");
             log.info("Uploaded {} bytes.", putObjectResult.getMetadata().getContentLength());
@@ -107,7 +119,7 @@ public class PicturesRestController {
     }
 
     @RequestMapping("/list")
-    public List<String> list(@RequestParam(value="folderName", defaultValue="") String folderName) {
+    public List<String> list(@RequestParam(value = "folderName", defaultValue = "") String folderName) {
         log.info("will get contents of S3 folder: " + folderName);
         log.info(s3Properties.getRootBucket());
         List<Bucket> buckets = amazonClient.listBuckets();
@@ -129,7 +141,7 @@ public class PicturesRestController {
     }
 
 
-    @RequestMapping(value="/uploadFile", method=RequestMethod.POST, headers="Content-Type=multipart/form-data")
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST, headers = "Content-Type=multipart/form-data")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestPart("picture") Picture picture) {
         log.info("received request, filename: {} ", file.getOriginalFilename());
         log.info("received request, picture fullfilename: {} ", picture.getFullFilename());
@@ -156,10 +168,9 @@ public class PicturesRestController {
     }
 
 
-
-    @RequestMapping(value="/uploadFolder", method=RequestMethod.POST)
+    @RequestMapping(value = "/uploadFolder", method = RequestMethod.POST)
     public @ResponseBody
-    Folder upload(@RequestBody Folder folder){
+    Folder upload(@RequestBody Folder folder) {
         log.info(folder.getFoldername());
         return folder;
     }
@@ -177,8 +188,70 @@ public class PicturesRestController {
         return multiPart.getOriginalFilename().replace(" ", "_");
     }*/
 
-    private void uploadFileTos3bucket(String fileName, File file, Picture picture) {
-        PutObjectResult putObjectResult = amazonClient.putObject(new PutObjectRequest(s3Properties.getRootBucket(), fileName, file)
+
+    private void uploadReducedFileTos3bucket(String filename, File file, Picture picture, int width, int height, String label) throws IOException {
+        String thumbnailFilename = String.format(
+                "%s%s_%s.%s"
+                , picture.getS3PathOnly()
+                , FilenameUtils.getBaseName(filename)
+                , label
+                , FilenameUtils.getExtension(filename));
+        System.out.println("Upload thumbnail: " + thumbnailFilename);
+
+        BufferedImage bufferedImage = Thumbnails.of(file).size(width, height).keepAspectRatio(true).asBufferedImage();
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, FilenameUtils.getExtension(filename), os);
+        InputStream thumbnailInputStream = new ByteArrayInputStream(os.toByteArray());
+
+
+        InputStream tmpInputStream = new ByteArrayInputStream(os.toByteArray());
+        byte[] byteArray = IOUtils.toByteArray( tmpInputStream );
+        Long contentLength = Long.valueOf(byteArray.length);
+        tmpInputStream.close();
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(contentLength);
+
+
+
+        PutObjectResult putObjectResult = amazonClient.putObject(
+                new PutObjectRequest(s3Properties.getRootBucket(), thumbnailFilename, thumbnailInputStream, objectMetadata)
+                        //       .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
+                        .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
+
+    }
+
+
+    private void uploadMetadataTos3bucket(String filename, Picture picture) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        System.out.println(objectMapper.writeValueAsString(picture));
+        String metadataFilename = String.format(
+                "%s%s.json"
+                , picture.getS3PathOnly()
+                , FilenameUtils.getBaseName(filename));
+
+        String fileContentString = objectMapper.writeValueAsString(picture);
+        byte[] fileContentBytes = fileContentString.getBytes(StandardCharsets.UTF_8);
+        InputStream fileInputStream = new ByteArrayInputStream(fileContentBytes);
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(ContentType.APPLICATION_JSON.toString());
+        metadata.setContentLength(fileContentBytes.length);
+        PutObjectRequest putObjectRequest = new PutObjectRequest(
+                s3Properties.getRootBucket(), metadataFilename, fileInputStream, metadata)
+                .withCannedAcl(CannedAccessControlList.BucketOwnerRead);
+        PutObjectResult putObjectResult = amazonClient.putObject(putObjectRequest);
+
+
+    }
+
+    private void uploadFileTos3bucket(String filename, File file, Picture picture) throws IOException {
+
+
+        PutObjectResult putObjectResult = amazonClient.putObject(new PutObjectRequest(s3Properties.getRootBucket(), filename, file)
+                //       .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
                 .withCannedAcl(CannedAccessControlList.BucketOwnerRead));
         System.out.println(putObjectResult.getContentMd5());
         System.out.println(picture.getMd5());
@@ -189,18 +262,23 @@ public class PicturesRestController {
         String fileUrl = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
-           // String fileName = generateFileName(multipartFile);
+            // String fileName = generateFileName(multipartFile);
             String fileName = picture.getS3Path().replace(" ", "_");
             fileUrl = s3Properties.getEndpointUrl() + "/" + s3Properties.getRootBucket() + "/" + fileName;
             uploadFileTos3bucket(fileName, file, picture);
-            StoredPicture storedPicture  = pictureRepository.findByFolderIdAndFilename(
-                     storedFolder.getId()
-                    ,picture.getFilename()
+            uploadMetadataTos3bucket(fileName, picture);
+            uploadReducedFileTos3bucket(fileName, file, picture, 100, 100, "thumbnail");
+            uploadReducedFileTos3bucket(fileName, file, picture, 500, 500, "small");
+            uploadReducedFileTos3bucket(fileName, file, picture, 1000, 1000, "medium");
+
+            StoredPicture storedPicture = pictureRepository.findByFolderIdAndFilename(
+                    storedFolder.getId()
+                    , picture.getFilename()
             );
             if (storedPicture == null) {
-                storedPicture = StoredPicture.fromPicture(picture, storedFolder, fileUrl);
+                storedPicture = StoredPicture.fromPicture(picture, storedFolder, fileUrl, fileName);
             } else {
-                storedPicture = StoredPicture.fromPicture(picture, storedFolder, fileUrl);
+                storedPicture = StoredPicture.fromPicture(picture, storedFolder, fileUrl, fileName);
             }
             pictureRepository.save(storedPicture);
 

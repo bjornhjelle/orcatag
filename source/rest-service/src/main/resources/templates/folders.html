@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OrcaTag - Folders</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Folders</h1>
+<p th:text="'number of folders: ' + ${folders.getTotalElements()}" />
+<div class="container">
+    <div th:if="${not #lists.isEmpty(folders.getContent())}">
+        <table class="table table-striped">
+            <tr th:each="folder : ${folders.getContent()}">
+                <td th:text="${folder.name}"></td>
+                <td><a th:href="@{/folders/{id}/pictures(id=${folder.id})}">pictures</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package no.orcatag.config;
+package no.orcatag.rest.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;

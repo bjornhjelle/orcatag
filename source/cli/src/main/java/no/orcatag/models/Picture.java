@@ -1,5 +1,6 @@
 package no.orcatag.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,11 +27,17 @@ public class Picture {
         this.folderName = folder.getFoldername();
     }
 
+    @JsonIgnore
     public String getFullFilename() {
         return this.folderName + "/" + this.filename;
     }
 
     public String getS3Path() {
         return this.folderName + "/" +  FilenameUtils.getBaseName(this.filename) + "/" + this.filename;
+    }
+
+    @JsonIgnore
+    public String getS3PathOnly() {
+        return this.folderName + "/" +  FilenameUtils.getBaseName(this.filename) + "/";
     }
 }
