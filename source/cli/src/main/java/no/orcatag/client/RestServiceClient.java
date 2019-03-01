@@ -35,7 +35,7 @@ public class RestServiceClient {
     }
 
     public List<String> list() {
-        String url = httpClient.getUrl() + "/list";
+        String url = httpClient.getUrl() + "/s3/folders";
         log.info("kaller getRestTemplate");
         ResponseEntity<List<String>> response = httpClient.getRestTemplate().exchange(
                 url, HttpMethod.GET, httpClient.getRequest(), new ParameterizedTypeReference<List<String>>(){});
@@ -63,6 +63,7 @@ public class RestServiceClient {
     public String uploadFile(Picture picture) throws IOException {
         String url = httpClient.getUrl() + "/uploadFile";
 
+        System.out.println(url);
         RestTemplate restTemplate = httpClient.getRestTemplate();
         //restTemplate.getMessageConverters().add();
 

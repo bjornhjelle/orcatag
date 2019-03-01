@@ -51,7 +51,7 @@ public class Application implements CommandLineRunner {
         this.restServiceClient = new RestServiceClient(new HttpClient(orcatagProperties.getUrl(),
                 orcatagProperties.getUsername(), orcatagProperties.getPassword()));
         log.debug("Number of arguments:" + args.length);
-        UploadService uploadService = new UploadService();
+        //UploadService uploadService = new UploadService();
         for (String arg : args) {
             log.debug(arg);
         }

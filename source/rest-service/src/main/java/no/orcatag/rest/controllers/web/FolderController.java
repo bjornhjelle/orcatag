@@ -1,4 +1,4 @@
-package no.orcatag.rest.controllers;
+package no.orcatag.rest.controllers.web;
 
 import no.orcatag.models.Folder;
 import no.orcatag.rest.models.Greeting;

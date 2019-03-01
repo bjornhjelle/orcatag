@@ -1,4 +1,4 @@
-package no.orcatag.rest.controllers;
+package no.orcatag.rest.controllers.web;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import no.orcatag.rest.config.S3Properties;

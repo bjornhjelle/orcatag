@@ -1,4 +1,4 @@
-package no.orcatag.rest.controllers;
+package no.orcatag.rest.controllers.web;
 
 import no.orcatag.rest.models.Greeting;
 import org.springframework.stereotype.Controller;

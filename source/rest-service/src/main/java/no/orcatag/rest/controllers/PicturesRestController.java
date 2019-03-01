@@ -40,7 +40,7 @@ import static javax.imageio.ImageIO.*;
  */
 @Slf4j
 @RestController
-@RequestMapping("/")
+@RequestMapping("/s3")
 public class PicturesRestController {
 
     private AmazonS3Client amazonClient;
@@ -118,8 +118,8 @@ public class PicturesRestController {
         return list;*/
     }
 
-    @RequestMapping("/list")
-    public List<String> list(@RequestParam(value = "folderName", defaultValue = "") String folderName) {
+    @RequestMapping("/folders/{folderName}")
+    public ResponseEntity<List<String>> list(@PathVariable("folderName") String folderName) {
         log.info("will get contents of S3 folder: " + folderName);
         log.info(s3Properties.getRootBucket());
         List<Bucket> buckets = amazonClient.listBuckets();
@@ -137,7 +137,8 @@ public class PicturesRestController {
         }
 
 
-        return list;
+        //return list;
+        return ResponseEntity.ok(list);
     }
 
 
