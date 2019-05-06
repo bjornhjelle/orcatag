@@ -71,6 +71,13 @@ integrationTest {
     }
 }
 
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
 
 idea {
     module {

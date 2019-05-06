@@ -11,7 +11,6 @@ import com.amazonaws.services.s3.model.Region;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import no.orcatag.models.Picture;
-import org.apache.catalina.Store;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

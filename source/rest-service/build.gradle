@@ -15,7 +15,7 @@ buildscript {
 
 plugins {
     id "io.spring.dependency-management" version "1.0.5.RELEASE"
-    id 'org.jetbrains.kotlin.jvm' version '1.2.71'
+//    id 'org.jetbrains.kotlin.jvm' version '1.2.71'
 }
 
 apply plugin: 'java'
@@ -42,7 +42,6 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
 }
@@ -67,8 +66,14 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     // AWS
-    implementation group: 'com.amazonaws', name: 'aws-java-sdk'
-    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3'
+
+   // compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.546', ext: 'pom'
+
+   // implementation group: 'com.amazonaws', name: 'aws-java-sdk'
+//    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.546'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.546'
+
 
     // Apache Commons
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
@@ -85,19 +90,18 @@ dependencies {
 
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
 
-
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  //  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 }
 
 
-dependencyManagement {
+/*dependencyManagement {
     imports {
         mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
     }
-}
-compileKotlin {
+}*/
+/*compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -106,4 +110,4 @@ compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
+}*/
