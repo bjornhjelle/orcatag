@@ -31,5 +31,7 @@ export AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>"
     postgres=# 
 
 
-asdasd   
+## Run the rest-service module
+
+    $ ../gradlew bootRun 
 
