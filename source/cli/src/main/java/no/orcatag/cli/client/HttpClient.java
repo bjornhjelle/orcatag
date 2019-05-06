@@ -1,4 +1,4 @@
-package no.orcatag.client;
+package no.orcatag.cli.client;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;

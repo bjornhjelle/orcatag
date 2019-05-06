@@ -1,7 +1,7 @@
 package no.oracatag.test;
 
-import no.orcatag.beans.ArgumentProcessor;
-import no.orcatag.models.Arguments;
+import no.orcatag.cli.beans.ArgumentProcessor;
+import no.orcatag.lib.models.Arguments;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.DefaultApplicationArguments;

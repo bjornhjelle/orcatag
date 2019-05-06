@@ -1,11 +1,9 @@
 package no.oracatag.test;
 
-import no.orcatag.beans.DirectoryProcessor;
-import no.orcatag.models.Arguments;
-import no.orcatag.models.ExifObject;
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
-import no.orcatag.services.UploadService;
+import no.orcatag.cli.beans.DirectoryProcessor;
+import no.orcatag.lib.models.Arguments;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
 import org.junit.Before;
 import org.junit.Test;
 

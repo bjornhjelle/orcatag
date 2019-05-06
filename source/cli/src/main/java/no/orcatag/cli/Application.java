@@ -1,26 +1,18 @@
-package no.orcatag;
+package no.orcatag.cli;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.beans.ArgumentProcessor;
-import no.orcatag.beans.DirectoryProcessor;
-import no.orcatag.client.HttpClient;
-import no.orcatag.client.RestServiceClient;
-import no.orcatag.config.OrcatagProperties;
-import no.orcatag.models.Arguments;
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
-import no.orcatag.services.UploadService;
+import no.orcatag.cli.client.HttpClient;
+import no.orcatag.cli.client.RestServiceClient;
+import no.orcatag.cli.config.OrcatagProperties;
+import no.orcatag.lib.models.Arguments;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -51,6 +43,7 @@ public class Application implements CommandLineRunner {
         this.restServiceClient = new RestServiceClient(new HttpClient(orcatagProperties.getUrl(),
                 orcatagProperties.getUsername(), orcatagProperties.getPassword()));
         log.debug("Number of arguments:" + args.length);
+        System.out.println("Number of arguments:" + args.length);
         //UploadService uploadService = new UploadService();
         for (String arg : args) {
             log.debug(arg);
@@ -62,7 +55,7 @@ public class Application implements CommandLineRunner {
             log.info(s3Buckets.toString());
             log.info("--------------------------------");
 
-            Arguments arguments = ArgumentProcessor.process(new DefaultApplicationArguments(args));
+           /* Arguments arguments = ArgumentProcessor.process(new DefaultApplicationArguments(args));
             log.info("arguments: " + arguments);
             DirectoryProcessor directoryProcessor = new DirectoryProcessor(arguments);
             log.info("Read files from directory {}", arguments.getDirectory());
@@ -84,7 +77,7 @@ public class Application implements CommandLineRunner {
                     log.error("Results: {}, failed to upload?", results);
                 }
                 //list.stream().forEach((s) -> System.out.println(s));
-            }
+            }*/
             System.out.println("done!");
 
         } catch (IllegalArgumentException ex) {

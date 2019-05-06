@@ -1,8 +1,8 @@
-package no.orcatag.beans;
+package no.orcatag.cli.beans;
 
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
-import no.orcatag.services.UploadService;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
+import no.orcatag.cli.services.UploadService;
 
 /**
  * Created by bjorn on 13/10/2018.

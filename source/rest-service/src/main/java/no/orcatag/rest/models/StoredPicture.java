@@ -10,8 +10,7 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.Region;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import no.orcatag.models.Picture;
-import org.apache.catalina.Store;
+import no.orcatag.lib.models.Picture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

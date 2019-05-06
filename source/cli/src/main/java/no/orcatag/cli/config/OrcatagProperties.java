@@ -1,4 +1,4 @@
-package no.orcatag.config;
+package no.orcatag.cli.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

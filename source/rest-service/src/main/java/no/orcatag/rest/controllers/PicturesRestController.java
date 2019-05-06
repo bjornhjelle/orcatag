@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import no.orcatag.rest.config.S3Properties;
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
 import no.orcatag.rest.models.StoredFolder;
 import no.orcatag.rest.models.StoredPicture;
 import no.orcatag.rest.repositories.FolderRepository;
@@ -23,17 +23,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
-
-import static javax.imageio.ImageIO.*;
 
 /**
  * Created by bjorn on 20/10/2018.

@@ -1,4 +1,4 @@
-package no.orcatag.models;
+package no.orcatag.lib.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-
-import java.io.File;
 
 /**
  * Created by bjorn on 12/10/2018.

@@ -1,18 +1,16 @@
 package no.oracatag.test;
 
-import no.orcatag.beans.DirectoryProcessor;
-import no.orcatag.beans.FileUploader;
-import no.orcatag.models.Arguments;
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
-import no.orcatag.services.UploadService;
+import no.orcatag.cli.beans.DirectoryProcessor;
+import no.orcatag.cli.beans.FileUploader;
+import no.orcatag.lib.models.Arguments;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
+import no.orcatag.cli.services.UploadService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;

@@ -1,20 +1,26 @@
 server:
   port: 8081
 
-logging.level.root: INFO
+logging.level.root: WARN
+
+
 
 spring:
+  jpa:
+    open-in-view: false
   security:
     user:
       user: orcatag
       password: test
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: "off"
 
 s3:
   rootBucket: "orcatag-dev"
   endpointUrl: https://s3-website-eu-west-1.amazonaws.com
   accessKey: <ACCESS KEY NAME>
   secretKey: <SECRET ACCESS KEY>
-
 
 #spring:
 #  jpa:

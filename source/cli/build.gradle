@@ -90,6 +90,11 @@ configurations {
 }
 
 dependencies {
+
+
+    implementation project(':lib')
+    
+    
     // source sets gradle plugin needs this for integration tests to run
     integrationTestCompile(
             sourceSets.test.output

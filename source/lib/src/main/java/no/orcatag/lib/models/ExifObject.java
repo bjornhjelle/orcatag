@@ -1,4 +1,4 @@
-package no.orcatag.models;
+package no.orcatag.lib.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

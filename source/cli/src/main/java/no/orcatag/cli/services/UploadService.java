@@ -1,4 +1,4 @@
-package no.orcatag.services;
+package no.orcatag.cli.services;
 
 import java.io.File;
 

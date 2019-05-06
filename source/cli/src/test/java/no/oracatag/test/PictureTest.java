@@ -1,6 +1,6 @@
 package no.oracatag.test;
 
-import no.orcatag.models.Picture;
+import no.orcatag.lib.models.Picture;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

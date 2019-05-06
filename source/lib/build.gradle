@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+sourceCompatibility = 1.8
+
+jar {
+    enabled = true
+}
+
+ext {
+    lombokVersion = '1.18.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly('org.projectlombok:lombok')
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.8'
+// https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+
+    // TIKA
+    implementation group: 'org.apache.tika', name: 'tika-core', version: '1.19'
+    implementation group: 'org.apache.tika', name: 'tika-parsers', version: '1.19'
+
+
+
+}

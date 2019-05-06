@@ -1,24 +1,20 @@
-package no.orcatag.client;
+package no.orcatag.cli.client;
 
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.models.Folder;
-import no.orcatag.models.Picture;
+import no.orcatag.lib.models.Folder;
+import no.orcatag.lib.models.Picture;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,8 +31,9 @@ public class RestServiceClient {
     }
 
     public List<String> list() {
-        String url = httpClient.getUrl() + "/s3/folders";
+        String url = httpClient.getUrl() + "/folders";
         log.info("kaller getRestTemplate");
+        System.out.println("kaller getRestTemplate: " + url);
         ResponseEntity<List<String>> response = httpClient.getRestTemplate().exchange(
                 url, HttpMethod.GET, httpClient.getRequest(), new ParameterizedTypeReference<List<String>>(){});
         log.info("Called REST-service, status code:" + response.getStatusCode().toString());

@@ -1,12 +1,8 @@
-package no.orcatag.beans;
+package no.orcatag.cli.beans;
 
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.models.Arguments;
+import no.orcatag.lib.models.Arguments;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Created by bjorn on 06/10/2018.

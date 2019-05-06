@@ -1,8 +1,7 @@
-package no.orcatag.beans;
+package no.orcatag.cli.beans;
 
 import lombok.extern.slf4j.Slf4j;
-import no.orcatag.models.*;
-import no.orcatag.services.UploadService;
+import no.orcatag.lib.models.*;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
