@@ -22,14 +22,32 @@ export AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>"
 
 ### Log in to psql
 
-    $ docker exec -it a271dab0eae0 /bin/bash
+    $ docker exec -it docker-compose_db_1 /bin/bash
     $ su - postgres
     $ psql
     psql (11.1 (Debian 11.1-1.pgdg90+1))
     Type "help" for help.
-          
-    postgres=# 
 
+
+List and truncate tables: 
+    
+    postgres=# 
+    postgres=# \dt
+              List of relations
+     Schema |   Name   | Type  |  Owner   
+    --------+----------+-------+----------
+     public | folders  | table | postgres
+     public | pictures | table | postgres
+    (2 rows)
+
+    postgres=# truncate table folders cascade;
+    NOTICE:  truncate cascades to table "pictures"
+    TRUNCATE TABLE
+    postgres=# 
+    
+
+
+Truncate tables:
 
 asdasd   
 

@@ -38,7 +38,7 @@ jar {
 sourceCompatibility = 1.8
 
 
-mainClassName="no.orcatag.Application"
+mainClassName="no.orcatag.cli.Application"
 
 testSets {
     integrationTest { dirName = 'test-integration' }

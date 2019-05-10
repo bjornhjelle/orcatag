@@ -54,9 +54,47 @@ public class PicturesRestController {
         this.s3Properties = s3Properties;
     }
 
-    @RequestMapping(value = "/foldersOld", method = RequestMethod.POST)
-    public List<String> greeting(@RequestBody Folder folder) {
+    @RequestMapping(value = "/folders", method = RequestMethod.GET)
+    // public List<String> getFolders() {
+    public ResponseEntity<List<String>> getRootFolders() {
 
+        log.info(" *************   got request");
+        List<String> list = new ArrayList<>();
+
+        // create rootBucket if it does not exist
+        String rootBucketName = s3Properties.getRootBucket();
+        //String bucketName = String.format("%s/%s", s3Properties.getRootBucket(), folder.getFoldername());
+        if (amazonClient.doesBucketExistV2(rootBucketName)) {
+            log.info("Root bucket exists");
+
+
+            log.info(s3Properties.getRootBucket());
+            List<Bucket> buckets = amazonClient.listBuckets();
+            Iterator<Bucket> iterator = buckets.iterator();
+            while (iterator.hasNext()) {
+                Bucket bucket = iterator.next();
+                list.add(bucket.getName());
+/*            ObjectListing listing = amazonClient.listObjects(bucket.getName());
+            List<S3ObjectSummary> s3ObjectSummaryList = listing.getObjectSummaries();
+            Iterator<S3ObjectSummary> objectIterator = s3ObjectSummaryList.iterator();
+            while (objectIterator.hasNext()) {
+                list.add(objectIterator.g);
+            }*/
+            }
+        } else {
+            log.info("Root bucket does not exist");
+        }
+
+        //return list;
+        return ResponseEntity.ok(list);
+    }
+
+
+    @RequestMapping(value = "/foldersOld", method = RequestMethod.GET)
+    // public List<String> getFolders() {
+    public List<String> getFolders(@RequestBody Folder folder) {
+
+        log.info(" *************   got request");
         List<String> list = new ArrayList<>();
 
         // create rootBucket if it does not exist
@@ -202,13 +240,12 @@ public class PicturesRestController {
 
 
         InputStream tmpInputStream = new ByteArrayInputStream(os.toByteArray());
-        byte[] byteArray = IOUtils.toByteArray( tmpInputStream );
+        byte[] byteArray = IOUtils.toByteArray(tmpInputStream);
         Long contentLength = Long.valueOf(byteArray.length);
         tmpInputStream.close();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(contentLength);
-
 
 
         PutObjectResult putObjectResult = amazonClient.putObject(
@@ -221,9 +258,10 @@ public class PicturesRestController {
 
     private void uploadMetadataTos3bucket(String filename, Picture picture) throws IOException {
 
+        log.info("upload metadata");
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        System.out.println(objectMapper.writeValueAsString(picture));
+        //System.out.println(objectMapper.writeValueAsString(picture));
         String metadataFilename = String.format(
                 "%s%s.json"
                 , picture.getS3PathOnly()
@@ -239,6 +277,7 @@ public class PicturesRestController {
                 s3Properties.getRootBucket(), metadataFilename, fileInputStream, metadata)
                 .withCannedAcl(CannedAccessControlList.BucketOwnerRead);
         PutObjectResult putObjectResult = amazonClient.putObject(putObjectRequest);
+        log.info("Content length: {}", putObjectResult.getMetadata().getContentLength());
 
 
     }

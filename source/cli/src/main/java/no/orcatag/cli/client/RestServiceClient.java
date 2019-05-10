@@ -31,7 +31,7 @@ public class RestServiceClient {
     }
 
     public List<String> list() {
-        String url = httpClient.getUrl() + "/folders";
+        String url = httpClient.getUrl() + "/s3/folders";
         log.info("kaller getRestTemplate");
         System.out.println("kaller getRestTemplate: " + url);
         ResponseEntity<List<String>> response = httpClient.getRestTemplate().exchange(
@@ -41,7 +41,7 @@ public class RestServiceClient {
     }
 
 
-    public List<String> createFolder(Folder folder) {
+/*    public List<String> createFolder(Folder folder) {
         String url = httpClient.getUrl() + "/folders";
 
         RestTemplate restTemplate = httpClient.getRestTemplate();
@@ -55,12 +55,11 @@ public class RestServiceClient {
                 url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<String>>(){});
         System.out.println("Called REST-service, status code:" + response.getStatusCode().toString());
         return response.getBody();
-    }
+    }*/
 
     public String uploadFile(Picture picture) throws IOException {
-        String url = httpClient.getUrl() + "/uploadFile";
+        String url = httpClient.getUrl() + "/s3/uploadFile";
 
-        System.out.println(url);
         RestTemplate restTemplate = httpClient.getRestTemplate();
         //restTemplate.getMessageConverters().add();
 

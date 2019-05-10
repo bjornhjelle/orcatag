@@ -4,6 +4,8 @@
 
 rest-service/docker-compose/data
 rest-service/out
+lib/out
+cli/out
 
 ### STS ###
 .apt_generated

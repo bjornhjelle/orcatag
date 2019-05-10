@@ -32,13 +32,15 @@ public class DirectoryProcessor {
     public Folder getFolder() throws IllegalArgumentException, IOException, FileNotFoundException {
 
         List<Picture> list = new ArrayList<>();
-        String foldername = arguments.getDirectory();
+        String foldername = clean(arguments.getDirectory());
+
+
         File folderFile = new File(foldername);
         if (!folderFile.exists() || !folderFile.isDirectory()) {
-            throw new IllegalArgumentException(arguments.getDirectory() + " is not a directory");
+            throw new IllegalArgumentException(foldername + " is not a directory");
         }
-        log.info(arguments.getDirectory());
-        try (Stream<Path> paths = Files.walk(Paths.get(arguments.getDirectory()))) {
+        log.info(foldername);
+        try (Stream<Path> paths = Files.walk(Paths.get(foldername))) {
             paths
                     // .forEach(f -> System.out.println(f.getFileName()));
                     .filter(Files::isRegularFile)
@@ -49,6 +51,7 @@ public class DirectoryProcessor {
         while(iterator.hasNext()) {
             iterator.next().setFolderName(folder.getFoldername());
         }
+
         return folder;
     }
 
@@ -100,5 +103,13 @@ public class DirectoryProcessor {
             log.info(file.getFileName().toString() + " is not an image file");
         }
     }
+
+    private String clean(String foldername){
+        if (foldername.endsWith("/")) {
+            foldername = foldername.substring(0, foldername.length() - 1);
+        }
+        return foldername;
+    }
+
 
 }

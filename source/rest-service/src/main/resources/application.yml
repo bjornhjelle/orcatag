@@ -1,7 +1,8 @@
 server:
   port: 8081
 
-logging.level.root: WARN
+logging.level.root: ${LOG_LEVEL:INFO}
+
 
 
 
@@ -19,8 +20,23 @@ spring:
 s3:
   rootBucket: "orcatag-dev"
   endpointUrl: https://s3-website-eu-west-1.amazonaws.com
-  accessKey: <ACCESS KEY NAME>
-  secretKey: <SECRET ACCESS KEY>
+  accessKey: ${AWS_ACCESS_KEY_ID}
+  secretKey: ${AWS_SECRET_ACCESS_KEY}
+
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username: postgres
+spring.datasource.password: postgres
+
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# https://stackoverflow.com/questions/4588755/disabling-contextual-lob-creation-as-createclob-method-threw-error
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto: update
 
 #spring:
 #  jpa:

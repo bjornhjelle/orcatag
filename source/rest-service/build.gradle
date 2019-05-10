@@ -46,6 +46,15 @@ test {
     }
 }
 
+bootRun {
+    systemProperties = System.properties
+}
+
+test {
+    systemProperties = System.properties
+}
+
+
 
 repositories {
     mavenCentral()
